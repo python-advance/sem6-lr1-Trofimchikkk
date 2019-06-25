@@ -2,7 +2,7 @@ import pandas as pd
 data = pd.read_csv('titanic.csv', index_col='PassengerId')
 import numpy as np
 
-# 1. Какое количество мужчин и женщин ехало на корабле? В качестве ответа приведите два числа через пробел.
+#1
 
 sex_counts = data['Sex'].value_counts()
 
@@ -15,14 +15,14 @@ def sex_count(sex, data = None):
     
 male_numb = sex_count('male', data['Sex'] )
 female_numb = sex_count('female', data['Sex'])
-print("Ответ№1:" , male_numb, female_numb)
+print("Ответ:" , male_numb, female_numb)
 
-# 2. Подсчитайте сколько пассажиров загрузилось на борт в различных портах? Приведите три числа через пробел.
+#2
 
 embarked_counts = data['Embarked'].value_counts()
-print("Ответ№2:" , embarked_counts['C'], embarked_counts['S'],embarked_counts['Q'])
+print("Ответ:" , embarked_counts['C'], embarked_counts['S'],embarked_counts['Q'])
 
-# 3. Посчитайте долю погибших на параходе (число и процент)?
+#3
 
 surv_counts = data['Survived'].value_counts()
 
@@ -35,9 +35,9 @@ def surv_count(survived, data = None):
     
 not_surv_numb = surv_count(0, data['Survived'])
 surv_percent = 100.0 * not_surv_numb / surv_counts.sum()
-print("Ответ№3:" ,not_surv_numb,"{:0.2f}".format(surv_percent))
+print("Ответ:" ,not_surv_numb,"{:0.2f}".format(surv_percent))
 
-# 4. Какие доли составляли пассажиры первого, второго, третьего класса?
+#4
 
 def get_number_of_class(rec):
     
@@ -49,7 +49,7 @@ def get_number_of_class(rec):
 
 get_number_of_class('titanic.csv')
 
-# 5. Вычислите коэффициент корреляции Пирсона между количеством супругов (SibSp) и количеством детей (Parch).
+#5
 
 def corr_Pirson(x, y):
     
@@ -58,12 +58,9 @@ def corr_Pirson(x, y):
     return res
 
 answer = corr_Pirson('SibSp','Parch' )
-print("Ответ№5:", "{:0.2f}".format(answer))
+print("Ответ:", "{:0.2f}".format(answer))
 
-# 6. Выясните есть ли корреляция (вычислите коэффициент корреляции Пирсона) между:
-# возрастом и параметром survival;
-# полом человека и параметром survival;
-# классом, в котором пассажир ехал, и параметром survival.
+#6
 
 def corr_Pirson(x, y):
     
@@ -74,13 +71,11 @@ def corr_Pirson(x, y):
 answer = corr_Pirson('Age','Survived' )
 print("Ответ№6:", "{:0.2f}".format(answer))
 
-#answer = corr_Pirson('Sex','Survived' )
-#print("Ответ№5:", "{:0.2f}".format(answer))
 
 answer1 = corr_Pirson('Pclass','Survived' )
-print("Ответ№6:", "{:0.2f}".format(answer1))
+print("Ответ:", "{:0.2f}".format(answer1))
 
-# 7. Посчитайте средний возраст пассажиров и медиану.
+#7
 
 def age(data = None):
     
@@ -88,9 +83,9 @@ def age(data = None):
     return np.average(age_lst), np.median(age_lst)
 age_int = age(data['Age'])
 
-print("Ответ№7:",age_int)
+print("Ответ:",age_int)
 
-# 8. Посчитайте среднюю цену за билет и медиану
+#8
 
 def price(data = None):
     
@@ -98,50 +93,43 @@ def price(data = None):
     return np.average(price_lst),np.median(price_lst)
 price_int = price(data['Fare'])
 
-print("Ответ№8:",price_int)
+print("Ответ:",price_int)
 
-# 9. Какое самое популярное мужское имя на корабле?
+#9
 
 def clean_name(name):
-    # Первое слово до запятой - фамилия
     s = re.search('^[^,]+, (.*)', name)
     if s:
         name = s.group(1)
-
-    # Если есть скобки - то имя пассажира в них
     s = re.search('\(([^)]+)\)', name)
     if s:
         name = s.group(1)
- 
-    # Удаляем обращения
     name = re.sub('(Master\. |Mr\. |Mrs\. )', '', name)
-
-    # Берем первое оставшееся слово и удаляем кавычки
     name = name.split(' ')[0].replace('"', '')
     return name
 
 names = data[data['Sex'] == 'male']['Name'].map(clean_name)
 name_counts = names.value_counts()
-print("Ответ№9:",name_counts.head(1).index.values[0])
+print("Ответ:",name_counts.head(1).index.values[0])
 
-# 10. Какие самые популярные мужское и женские имена людей, старше 15 лет на корабле?
+#10
 
 def clean_name(name):
     import re
-    # Первое слово до запятой - фамилия
+    
     s = re.search('^[^,]+, (.*)', name)
     if s:
         name = s.group(1)
 
-    # Если есть скобки - то имя пассажира в них
+   
     s = re.search('\(([^)]+)\)', name)
     if s:
         name = s.group(1)
  
-    # Удаляем обращения
+   
     name = re.sub('(Master\. |Mr\. |Mrs\. |Miss\. )', '', name)
 
-    # Берем первое оставшееся слово и удаляем кавычки
+   
     name = name.split(' ')[0].replace('"', '')
 
     return name
@@ -159,7 +147,7 @@ def get_name(dataset,sex,age):
 
 
 print('\n')
-#Самое популярное мужское имя старше 15 лет
+
 print('Мужское: '+ get_name(data,'male',15))
-#Самое популярное женское имя старше 15 лет
-print('Женское: '+ get_name(data,'female',15))
+
+print('Жен: '+ get_name(data,'female',15))
