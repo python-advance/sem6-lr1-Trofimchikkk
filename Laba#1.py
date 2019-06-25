@@ -148,6 +148,6 @@ def get_name(dataset,sex,age):
 
 print('\n')
 
-print('Мужское: '+ get_name(data,'male',15))
+print('Муж: '+ get_name(data,'male',15))
 
 print('Жен: '+ get_name(data,'female',15))
